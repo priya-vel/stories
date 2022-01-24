@@ -24,7 +24,7 @@ router.get('/facebook', passport.authenticate('facebook', { scope: ["profile"] }
 // @desc    facebook auth callback
 // @route   GET /auth/facebook/callback
 router.get(
-    '/google/callback',
+    '/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/' }),
     (req, res) => {
       res.redirect('/dashboard')
