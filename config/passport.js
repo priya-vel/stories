@@ -11,7 +11,7 @@ module.exports = function (passport) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-       callbackURL: process.env.PORT + '/auth/google/callback',
+       callbackURL: process.env.HOST + '/auth/google/callback',
       },
       async (accessToken, refreshToken, profile, done) => {
         const newUser = {
@@ -43,7 +43,7 @@ module.exports = function (passport) {
       {
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-       callbackURL: process.env.PORT + '/auth/facebook/callback',
+       callbackURL: process.env.HOST + '/auth/facebook/callback',
       },
       async (accessToken, refreshToken, profile, done) => {
         const newUser = {
@@ -75,7 +75,7 @@ module.exports = function (passport) {
       {
         clientID: process.env.LINKEDIN_CLIENT_ID,
         clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-       callbackURL: process.env.PORT + '/auth/linkedin/callback',
+       callbackURL: process.env.HOST + '/auth/linkedin/callback',
       },
       async (accessToken, refreshToken, profile, done) => {
         const newUser = {
