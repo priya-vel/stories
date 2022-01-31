@@ -141,17 +141,44 @@ router.delete('/:id', ensureAuth, async (req, res) => {
 // @route   GET /stories/user/:userId
 router.get('/user/:userId', ensureAuth, async (req, res) => {
   try {
-    const stories = await Story.find({
-      user: req.params.userId,
-      status: 'public',
-    })
-      .populate('user')
-      .lean()
+    const stories = await Story.aggregate([
+      
+   {
+     $match: {
+       status: "public"
+     }
+   },
+   {
+     $lookup: {
+       from: "users",
+       localField: "user",
+       foreignField: "_id",
+       as: "user"
+     },
+   },
+   {
+     $unwind: "$user",
+   }
+   
+  ])
+  .project({
+    _id: 1,
+    title: 1,
+    body: 1,
+    status: 1,
+    user: {
+      _id: 1,
+      displayName: 1,
+      image: 1
+    },
+    createdAt: 1
+  })
+  console.log(stories);
 
     res.render('stories/index', {
       stories,
     })
-  } catch (err) {
+   } catch (err) {
     console.error(err)
     res.render('error/500')
   }
